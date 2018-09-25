@@ -39,6 +39,49 @@ class Hero:
         return total_attack
         # Run attack() on every ability hero has
 
+class Weapon(Ability):
+    def attack(self):
+        """
+        This method should should return a random value
+        between 0 and the full attack power of the weapon.
+        Hint: The attack power is inherited.
+        """
+        weapon_attack_value = random.randint(0, self.attack_strength)
+        return weapon_attack_value
+
+class Team:
+    def init(self, team_name):
+        """Instantiate resources."""
+        self.name = team_name
+        self.heroes = list()
+
+    def add_hero(self, Hero):
+        """Add Hero object to heroes list."""
+        self.heroes.append(Hero)
+
+    def remove_hero(self, name):
+        """
+        Remove hero from heroes list.
+        If Hero isn't found return 0.
+        """
+        for i, o in enumerate(self.heroes):
+            if Hero == 0:
+                return 0
+
+
+    def find_hero(self, name):
+        """
+        Find and return hero from heroes list.
+        If Hero isn't found return 0.
+        """
+        for i, o in enumerate(self.heroes):
+            if Hero == 0:
+                return 0
+
+    def view_all_heroes(self):
+        """Print out all heroes to the console."""
+        for h in self.heroes:
+            print(hero)
 
 #if __name__ == "__main__":
     # If you run this file from the terminal this block is executed.
