@@ -50,7 +50,7 @@ class Weapon(Ability):
         return weapon_attack_value
 
 class Team:
-    def init(self, team_name):
+    def __init__(self, team_name):
         """Instantiate resources."""
         self.name = team_name
         self.heroes = list()
@@ -65,8 +65,9 @@ class Team:
         If Hero isn't found return 0.
         """
         for i, o in enumerate(self.heroes):
-            if Hero == 0:
-                return 0
+            if o.name == name:
+                self.heroes.pop(i)
+        return 0
 
 
     def find_hero(self, name):
@@ -74,14 +75,15 @@ class Team:
         Find and return hero from heroes list.
         If Hero isn't found return 0.
         """
-        for i, o in enumerate(self.heroes):
-            if Hero == 0:
-                return 0
+        for hero in self.heroes:
+            if name == hero.name:
+                return hero
+        return 0
 
     def view_all_heroes(self):
         """Print out all heroes to the console."""
-        for h in self.heroes:
-            print(hero)
+        for Hero in self.heroes:
+            print(Hero.name)
 
 #if __name__ == "__main__":
     # If you run this file from the terminal this block is executed.
