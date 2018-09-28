@@ -21,16 +21,16 @@ class Ability:
 
 class Armor:
     def __init__(self, name, defense):
-        """Instantiate name and defense strength."""
         self.name = name
         self.defense = defense
+        """Instantiate name and defense strength."""
 
     def defend(self):
+        return random.randint(0, self.defense)
         """
         Return a random value between 0 and the
         initialized defend strength.
         """
-        return random.randint(0, self.defense)
 
 
 class Hero:
@@ -79,6 +79,7 @@ class Hero:
         num_kills = 0
         self.health = self.health - damage_amt
         if self.health <= 0:
+            # self.health = 0
             num_kills += 1
         """
         This method should subtract the damage amount from the
@@ -104,33 +105,35 @@ class Weapon(Ability):
 
 class Team:
     def __init__(self, team_name):
-        """Instantiate resources."""
         self.name = team_name
         self.heroes = list()
+        """Instantiate resources."""
+
 
     def add_hero(self, Hero):
-        """Add Hero object to heroes list."""
         self.heroes.append(Hero)
+        """Add Hero object to heroes list."""
+
 
     def remove_hero(self, name):
-        """
-        Remove hero from heroes list.
-        If Hero isn't found return 0.
-        """
         for i, o in enumerate(self.heroes):
             if o.name == name:
                 self.heroes.pop(i)
         return 0
-
-    def find_hero(self, name):
         """
-        Find and return hero from heroes list.
+        Remove hero from heroes list.
         If Hero isn't found return 0.
         """
+
+    def find_hero(self, name):
         for hero in self.heroes:
             if name == hero.name:
                 return hero
         return 0
+        """
+        Find and return hero from heroes list.
+        If Hero isn't found return 0.
+        """
 
     def view_all_heroes(self):
         for Hero in self.heroes:
@@ -156,7 +159,7 @@ class Team:
         excess_damage = 0
         for hero in self.heroes:
             team_defence += hero.defend()
-            excess_damage += damage_amt - team_defence
+        excess_damage += damage_amt - team_defence
         if excess_damage >= 0:
             return self.deal_damage(excess_damage)
         """
@@ -181,7 +184,7 @@ class Team:
 
     def revive_heroes(self, health=100):
         for hero in self.heroes:
-            health = hero.start_health
+            hero.health = hero.start_health
         """
         This method should reset all heroes health to their
         original starting value.

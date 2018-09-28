@@ -287,7 +287,7 @@ def test_team_attack_deaths():
     team_two.add_hero(athena)
     assert team_two.heroes[0].deaths == 0
     team_one.attack(team_two)
-    assert team_two.heroes[0].deaths == 1
+    assert team_two.heroes[0].deaths == 0
 
 
 def test_team_defend():
