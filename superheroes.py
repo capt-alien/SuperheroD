@@ -55,6 +55,7 @@ class Hero:
         self.name = name
         self.abilities = list()
         self.armors = list()
+        self.weapons = list()
         self.start_health = health
         self.health = health
         self.deaths = 0
@@ -66,11 +67,13 @@ class Hero:
         # abilities.append = ##no idea what to put here
         # Add ability to abilities list
 
-    def add_armor(self,Armor):
+    def add_armor(self,armor):
         self.armors.append(Armor)
         ##add_armor to pass pytest
 
-
+    def add_weapon(self,weapon):
+        self.weapons.append(weapon)
+        ##weapon add to hero
 
     def attack(self):
         total_attack = 0
@@ -234,93 +237,100 @@ class Arena:
         self.team_one = None
         self.team_two = None
 
-    def build_team (self, team):
+    def build_team(self, team):
         team = []
         team_name = input("What is the name of your team? ")
         team = Team(team_name)
-        prompt1 = validator((["Yes","yes","y", "No", "no", "n"], "Would you like to add a hero? "))
-        if prompt1 == "Yes" or "yes" or "y":
-            hero2 = input("Please enter Name of SuperHero: ")
-            add_hero(hero2)
 
-            cont_ability = True
-            while cont_ability:
-                prompt2 = validator((["Yes","yes","y", "No", "no", "n"], "Would you like to add an ability? "))
-                if prompt2 == "Yes" or "yes" or "y":
-                    ability1 = input("Please enter ability name: ")
-                    add_ability(hero1, ability1)
-                elif prompt2 = "No" or "no" or "n":
-                    cont_ability = False
+        cont_hero = True
+        while cont_hero:
+            prompt1 = validator(["Yes","yes","y", "No", "no", "n"], "Would you like to add a hero? ")
+            if prompt1 == "Yes" or "yes" or "y":
+                team.view_all_heroes()
+                hero1 = input("Please enter Name of SuperHero: ")
+                find_hero = hero1
+                Team.add_hero(hero1)
 
-            cont_weapon = True
-            while cont_ability:
-                prompt2 = validator((["Yes","yes","y", "No", "no", "n"], "Would you like to add a Weapon? "))
-                if prompt2 == "Yes" or "yes" or "y":
-                    weapon1 = input("Please enter weapon name: ")
+                cont_ability = True
+                while cont_ability:
+                    prompt2 = validator(["Yes","yes","y", "No", "no", "n"], "Would you like to add an ability? ")
+                    if prompt2 == "Yes" or "yes" or "y":
+                        ability1 = input("Please enter ability name: ")
+                        add_ability(hero1, ability1)
+                    elif prompt2 == "No" or "no" or "n":
+                        cont_ability = False
 
-                    add_weapon(hero1, ability1)
-                elif prompt2 = "No" or "no" or "n":
-                    cont_ability = False
+                cont_weapon = True
+                while cont_ability:
+                    prompt2 = validator(["Yes","yes","y", "No", "no", "n"], "Would you like to add a Weapon? ")
+                    if prompt2 == "Yes" or "yes" or "y":
+                        weapon1 = input("Please enter weapon name: ")
+                        add_weapon(hero1, weapon1)
+                    elif prompt2 == "No" or "no" or "n":
+                        cont_ability = False
 
-            cont_armor = True
-            while cont_armor:
-                prompt2 = validator((["Yes","yes","y", "No", "no", "n"], "Would you like to add armor? "))
-                if prompt2 == "Yes" or "yes" or "y":
-                    armor1 = input("Please enter armor type: ")
-                    add_ability(hero1, ability1)
-                elif prompt2 = "No" or "no" or "n":
-                    cont_ability = False
-
-
-
-
-
-
-        else:
-            print(team_name,": ", team)
-        ## add hero name
-        ## loop and ask for ability until they say no
-        ## loop and ask for armor until they say no
-        ## loop and ask for weapons until they say no
-        # ask again if they want to add a hero
-
-
+                cont_armor = True
+                while cont_armor:
+                    prompt2 = validator(["Yes","yes","y", "No", "no", "n"], "Would you like to add armor? ")
+                    if prompt2 == "Yes" or "yes" or "y":
+                        armor1 = input("Please enter armor type: ")
+                        add_armor(hero1, armor1)
+                    elif prompt2 == "No" or "no" or "n":
+                        cont_ability = False
+            else:
+                cont_hero = False
+                print(team_name,": ", team)
 
     def build_team_one(self):
-        build_team (self.team_one)
+        self.build_team(self.team_one)
+        # team_name = build_team()
 
         """
-        This method should allow a user to build team one.
+    # This method should allow a user to build team one.
         """
 
     def build_team_two(self):
-        build_team (self.team_two)
+        self.build_team(self.team_two)
         """
         This method should allow user to build team two.
         """
 
     def team_battle(self):
+        battling = True
+        while battling:
+            team_one.attack(team_two)
+            team_two.defend(team_one)
+            team_one.deal_damage(team_two)
+            if team_two.total_deaths == len(team_two):
+                print(team_one.team_name + "wins! ")
+                battling = False
+            else:
+                team_two.attack(team_one)
+                team_one.defend(team_two)
+                team_two.deal_damage(team_one)
+                if team_one.total_deaths == len(team_one):
+                    print(team_two.team_name + "wins! ")
+                    battling =False
         """
         This method should continue to battle teams until
         one or both teams are dead.
         """
 
     def show_stats(self):
+        team_one.stats
+        team_two.stats
         """
+        ***SHould jsut run stats method on both teams***
         This method should print out the battle statistics
         including each heroes kill/death ratio.
         """
 
+# create heros
+team_one = superheroes.Team("One")
+jodie = superheroes.Hero("Jodie Foster")
+aliens = superheroes.Ability("Alien Friends", 10000)
 
 
-#if __name__ == "__main__":
-    # If you run this file from the terminal this block is executed.
-# if __name__ == "__main__":
-#     hero = Hero("Wonder Woman")
-#     print("Hero Attack: {}\n".format(hero.attack()))
-#     ability = Ability("Divine Speed", 300)
-#     hero.add_ability(ability)
-#     print(hero.attack())
-#     new_ability = Ability("Super Human Strength", 800)
-#     hero.add_ability(new_ability)
-#     print(hero.attack())
+
+
+Arena().build_team_one()
