@@ -236,6 +236,48 @@ class Arena:
         """
         self.team_one = None
         self.team_two = None
+        abiliities_list = []
+        weapon_list = []
+        armor_list = []
+        hero_list = []
+
+    def create_abiliities(self, name, attack_strength):
+        return superheroes.Ability(name, attack_strength)
+        ability.name = input("What is the ability name?")
+        ability.attack_strength = random.randint(45, 5000)
+        ability.name.apend(abiliities_list)
+
+    def create_armor(self, name, defence_bonus):
+        armor.name = input("What is the name of the Armor? ")
+        armor.defence_bonus = random.randit(0,5000)
+        armor.name.append(armor_list)
+
+    def create_weapon(self, name, weapon_attack_value):
+        weapon.name = input("Name Your Weapon!")
+        weapon.weapon_attack_value = random.randit(0,5000)
+        weapons.name.append(weapon_list)
+
+
+
+    def create_heroes(self, name, start_health):
+        name = input("Please enter Name of SuperHero: ")
+        start_health = input("Enter Starting Health")
+       #create and Add ability
+        num_of_abilities = input("How many abilities does this hero have?"):
+        for _ in range(0, num_of_abilities):
+            self.create_ability()
+            self.add_ability()
+            #Create and add armor
+        pices_armor = input("How many pices of Armor does this hero have?"):
+                for _ in range(0, pices_armor):
+                    self.create_armor()
+                    self.add_armor(pices_armor)
+            #Creates and adds weapon
+        w_prompt = validator(["Yes","yes","y", "No", "no", "n"],"Would you like to give this hero a weapon?")
+        if w_prompt == "Yes" or "yes" or "y":
+            self.add_weapon(create_weapon())
+
+
 
     def build_team(self, team):
         team = []
@@ -251,32 +293,32 @@ class Arena:
                 find_hero = hero1
                 Team.add_hero(hero1)
 
-                cont_ability = True
-                while cont_ability:
-                    prompt2 = validator(["Yes","yes","y", "No", "no", "n"], "Would you like to add an ability? ")
-                    if prompt2 == "Yes" or "yes" or "y":
-                        ability1 = input("Please enter ability name: ")
-                        add_ability(hero1, ability1)
-                    elif prompt2 == "No" or "no" or "n":
-                        cont_ability = False
-
-                cont_weapon = True
-                while cont_ability:
-                    prompt2 = validator(["Yes","yes","y", "No", "no", "n"], "Would you like to add a Weapon? ")
-                    if prompt2 == "Yes" or "yes" or "y":
-                        weapon1 = input("Please enter weapon name: ")
-                        add_weapon(hero1, weapon1)
-                    elif prompt2 == "No" or "no" or "n":
-                        cont_ability = False
-
-                cont_armor = True
-                while cont_armor:
-                    prompt2 = validator(["Yes","yes","y", "No", "no", "n"], "Would you like to add armor? ")
-                    if prompt2 == "Yes" or "yes" or "y":
-                        armor1 = input("Please enter armor type: ")
-                        add_armor(hero1, armor1)
-                    elif prompt2 == "No" or "no" or "n":
-                        cont_ability = False
+                # cont_ability = True
+                # while cont_ability:
+                #     prompt2 = validator(["Yes","yes","y", "No", "no", "n"], "Would you like to add an ability? ")
+                #     if prompt2 == "Yes" or "yes" or "y":
+                #         ability1 = input("Please enter ability name: ")
+                #         add_ability(hero1, ability1)
+                #     elif prompt2 == "No" or "no" or "n":
+                #         cont_ability = False
+                #
+                # cont_weapon = True
+                # while cont_ability:
+                #     prompt2 = validator(["Yes","yes","y", "No", "no", "n"], "Would you like to add a Weapon? ")
+                #     if prompt2 == "Yes" or "yes" or "y":
+                #         weapon1 = input("Please enter weapon name: ")
+                #         add_weapon(hero1, weapon1)
+                #     elif prompt2 == "No" or "no" or "n":
+                #         cont_ability = False
+                #
+                # cont_armor = True
+                # while cont_armor:
+                #     prompt2 = validator(["Yes","yes","y", "No", "no", "n"], "Would you like to add armor? ")
+                #     if prompt2 == "Yes" or "yes" or "y":
+                #         armor1 = input("Please enter armor type: ")
+                #         add_armor(hero1, armor1)
+                #     elif prompt2 == "No" or "no" or "n":
+                #         cont_ability = False
             else:
                 cont_hero = False
                 print(team_name,": ", team)
@@ -325,12 +367,31 @@ class Arena:
         including each heroes kill/death ratio.
         """
 
-# create heros
-team_one = superheroes.Team("One")
-jodie = superheroes.Hero("Jodie Foster")
-aliens = superheroes.Ability("Alien Friends", 10000)
+# # create heros
+# team_one = superheroes.Team("One")
+# jodie = superheroes.Hero("Jodie Foster")
+# aliens = superheroes.Ability("Alien Friends", 10000)
 
+# def create_ability():
+#     abilities = [
+#         "Alien Attack",
+#         "Science",
+#         "Star Power",
+#         "Immortality",
+#         "Grandmas Cookies",
+#         "Blinding Strength",
+#         "Cute Kittens",
+#         "Team Morale",
+#         "Luck",
+#         "Obsequious Destruction",
+#         "The Kraken",
+#         "The Fire of A Million Suns",
+#         "Team Spirit",
+#         "Canada"]
+#     name = abilities[random.randint(0, len(abilities) - 1)]
+#     power = random.randint(45, 700000)
+#     return superheroes.Ability(name, power)
+#    heroes
 
-
-
+Arena().create_heroes()
 Arena().build_team_one()
