@@ -5,6 +5,22 @@
 #     if input_text =
 #
 
+def validator_num (input_text):
+    is_valid = False
+    while True:
+        try:
+            entry = input(input_text)
+            if entry.isdigit()== True:
+                is_valid = True
+                return entry
+            else:
+                print("Invalid Input! Try again...")
+        except:
+            print("Invalid Input! Try again...")
+
+validator_num("Would you like to add a hero? ")
+
+
 def validator (list_of_valid_entries, input_text):
     is_valid = False
     while True:
@@ -21,5 +37,3 @@ def validator (list_of_valid_entries, input_text):
                 print("Invalid Input! Try again...")
         except:
             print("Invalid Input! Try again...")
-
-validator(["Yes","yes","y", "No", "no", "n"], "Would you like to add a hero? ")

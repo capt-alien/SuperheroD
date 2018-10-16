@@ -17,6 +17,19 @@ def validator (list_of_valid_entries, input_text):
         except:
             print("Invalid Input! Try again...")
 
+def validator_num (input_text):
+    is_valid = False
+    while True:
+        try:
+            entry = input(input_text)
+            if entry.isdigit()== True:
+                is_valid = True
+                return entry
+            else:
+                print("Invalid Input! Try again...")
+        except:
+            print("Invalid Input! Try again...")
+
 class Ability:
     def __init__(self, name, attack_strength):
         self.name = name
@@ -236,46 +249,46 @@ class Arena:
         """
         self.team_one = None
         self.team_two = None
-        abiliities_list = []
-        weapon_list = []
-        armor_list = []
-        hero_list = []
+        self.hero_list = []
 
-    def create_abiliities(self, name, attack_strength):
-        return superheroes.Ability(name, attack_strength)
-        ability.name = input("What is the ability name?")
-        ability.attack_strength = random.randint(45, 5000)
-        ability.name.apend(abiliities_list)
+    def create_abilities(self, hero):
+        name = input("What is the ability name? ")
+        attack_strength = random.randint(45, 5000)
+        ability = Ability(name, attack_strength)
+        hero.add_ability(ability)
+        #return Ability(name, attack_strength)
 
-    def create_armor(self, name, defence_bonus):
-        armor.name = input("What is the name of the Armor? ")
-        armor.defence_bonus = random.randit(0,5000)
-        armor.name.append(armor_list)
+    def create_armor(self, hero):
+        name = input("What is the name of the Armor? ")
+        defence_bonus = random.randint(0,5000)
+        armor = Armor(name, defence_bonus)
 
-    def create_weapon(self, name, weapon_attack_value):
-        weapon.name = input("Name Your Weapon!")
-        weapon.weapon_attack_value = random.randit(0,5000)
-        weapons.name.append(weapon_list)
+    def create_weapon(self, hero):
+        name = input("Name Your Weapon! ")
+        weapon_attack_value = random.randint(0,5000)
 
 
-
-    def create_heroes(self, name, start_health):
+    def create_heroes(self):
         name = input("Please enter Name of SuperHero: ")
-        start_health = input("Enter Starting Health")
+        start_health = validator_num("Enter Starting Health ")
+        hero = Hero(name, start_health)
+        self.hero_list.append(hero)
+        print(self.hero_list[0].name)
        #create and Add ability
-        num_of_abilities = input("How many abilities does this hero have?"):
+        num_of_abilities = int(validator_num("How many abilities does this hero have? "))
         for _ in range(0, num_of_abilities):
-            self.create_ability()
-            self.add_ability()
+            self.create_abilities(hero)
             #Create and add armor
-        pices_armor = input("How many pices of Armor does this hero have?"):
-                for _ in range(0, pices_armor):
-                    self.create_armor()
-                    self.add_armor(pices_armor)
+        pices_armor = int(validator_num("How many pices of Armor does this hero have? "))
+        for _ in range(0, pices_armor):
+            self.create_armor(hero)
+            hero.add_armor(pices_armor)
             #Creates and adds weapon
-        w_prompt = validator(["Yes","yes","y", "No", "no", "n"],"Would you like to give this hero a weapon?")
+        w_prompt = validator(["Yes","yes","y", "No", "no", "n"],"Would you like to give this hero a weapon? ")
         if w_prompt == "Yes" or "yes" or "y":
-            self.add_weapon(create_weapon())
+            hero.add_weapon(self.create_weapon(hero))
+        else:
+            pass
 
 
 
@@ -283,42 +296,18 @@ class Arena:
         team = []
         team_name = input("What is the name of your team? ")
         team = Team(team_name)
+        print("team {}".format(team))
 
         cont_hero = True
         while cont_hero:
             prompt1 = validator(["Yes","yes","y", "No", "no", "n"], "Would you like to add a hero? ")
             if prompt1 == "Yes" or "yes" or "y":
-                team.view_all_heroes()
+                for hero in self.hero_list:
+                    print(hero.name)
                 hero1 = input("Please enter Name of SuperHero: ")
-                find_hero = hero1
-                Team.add_hero(hero1)
+                self.find_hero(hero1)
+                self.add_hero(hero1)
 
-                # cont_ability = True
-                # while cont_ability:
-                #     prompt2 = validator(["Yes","yes","y", "No", "no", "n"], "Would you like to add an ability? ")
-                #     if prompt2 == "Yes" or "yes" or "y":
-                #         ability1 = input("Please enter ability name: ")
-                #         add_ability(hero1, ability1)
-                #     elif prompt2 == "No" or "no" or "n":
-                #         cont_ability = False
-                #
-                # cont_weapon = True
-                # while cont_ability:
-                #     prompt2 = validator(["Yes","yes","y", "No", "no", "n"], "Would you like to add a Weapon? ")
-                #     if prompt2 == "Yes" or "yes" or "y":
-                #         weapon1 = input("Please enter weapon name: ")
-                #         add_weapon(hero1, weapon1)
-                #     elif prompt2 == "No" or "no" or "n":
-                #         cont_ability = False
-                #
-                # cont_armor = True
-                # while cont_armor:
-                #     prompt2 = validator(["Yes","yes","y", "No", "no", "n"], "Would you like to add armor? ")
-                #     if prompt2 == "Yes" or "yes" or "y":
-                #         armor1 = input("Please enter armor type: ")
-                #         add_armor(hero1, armor1)
-                #     elif prompt2 == "No" or "no" or "n":
-                #         cont_ability = False
             else:
                 cont_hero = False
                 print(team_name,": ", team)
@@ -327,15 +316,9 @@ class Arena:
         self.build_team(self.team_one)
         # team_name = build_team()
 
-        """
-    # This method should allow a user to build team one.
-        """
 
     def build_team_two(self):
         self.build_team(self.team_two)
-        """
-        This method should allow user to build team two.
-        """
 
     def team_battle(self):
         battling = True
@@ -353,45 +336,19 @@ class Arena:
                 if team_one.total_deaths == len(team_one):
                     print(team_two.team_name + "wins! ")
                     battling =False
-        """
-        This method should continue to battle teams until
-        one or both teams are dead.
-        """
 
     def show_stats(self):
         team_one.stats
         team_two.stats
-        """
-        ***SHould jsut run stats method on both teams***
-        This method should print out the battle statistics
-        including each heroes kill/death ratio.
-        """
 
-# # create heros
-# team_one = superheroes.Team("One")
-# jodie = superheroes.Hero("Jodie Foster")
-# aliens = superheroes.Ability("Alien Friends", 10000)
+## start of the program
+print("Welcome to the Proving Ground:")
+print("   Where two teams enter, and only one team leaves")
+#number_of_heroes = validator(int,"How many champions would you like to have?")
+number_of_heroes = int(validator_num("How many Champions would you like? "))
+for _ in range(0, number_of_heroes):
+    Arena().create_heroes()
+print
 
-# def create_ability():
-#     abilities = [
-#         "Alien Attack",
-#         "Science",
-#         "Star Power",
-#         "Immortality",
-#         "Grandmas Cookies",
-#         "Blinding Strength",
-#         "Cute Kittens",
-#         "Team Morale",
-#         "Luck",
-#         "Obsequious Destruction",
-#         "The Kraken",
-#         "The Fire of A Million Suns",
-#         "Team Spirit",
-#         "Canada"]
-#     name = abilities[random.randint(0, len(abilities) - 1)]
-#     power = random.randint(45, 700000)
-#     return superheroes.Ability(name, power)
-#    heroes
-
-Arena().create_heroes()
 Arena().build_team_one()
+Arena().build_team_two()
