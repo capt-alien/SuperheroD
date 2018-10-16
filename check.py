@@ -7,7 +7,7 @@ import random
 # I think I need a better understanding of pytests and how to write them in order to
 # better code.
 
-def validator (list_of_valid_entries, input_text):
+def validator(list_of_valid_entries, input_text):
     is_valid = False
     while True:
         try:
@@ -24,7 +24,7 @@ def validator (list_of_valid_entries, input_text):
         except:
             print("Invalid Input! Try again...")
 
-def validator_num (input_text):
+def validator_num(input_text):
     is_valid = False
     while True:
         try:
@@ -122,12 +122,9 @@ class Team:
         If Hero isn't found return 0.
         """
         if len(self.heroes) <= 0:
-            # print("self.heroes is empty")
             return 0
-            for hero in self.heroes:
+        for hero in self.heroes:
             if hero.name == name:
-                # print("BEER")
-                # remove the hero
                 self.heroes.remove(hero)
             else:
                 return 0
@@ -315,18 +312,16 @@ class Arena(Hero, Team):
         hero_name = heroes[index]
         hero = Hero(hero_name)
         # Ask how many abilities does the hero have then build that many abilities
-        abilites_number = int(input("How many abilities do you want your hero {} to have? ".format(hero.name)))
-        # However many abilities the user wants the hero get the ability and add to the heros list of abilities that many times
+        abilites_number = int(validator_num("How many abilities do you want your hero {} to have? ".format(hero.name)))
         for _ in range(0, abilites_number):
             ability = self.build_abilities_list()
             hero.add_ability(ability)
         print(hero.abilities)
         # Ask How many armor
-        armors_number = int(input("How many armor do you want your hero {} to have? ".format(hero.name)))
+        armors_number = int(validator_num("How many picecs of armor do you want your hero {} to have? ".format(hero.name)))
         # However many armor the user wants the hero get the ability and add to the heros list of armor that many times
         for _ in range(0, armors_number):
             hero.add_armor(self.build_armors_list())
-        # After you have created a hero object and set values to the hero's properties add the hero the team's list of heroes
         print(hero.armors)
         return hero
 
@@ -335,40 +330,38 @@ class Arena(Hero, Team):
         print("Welcome to the Proving Ground:")
         print("   Where two teams enter, and only one team leaves")
 
-        team_name = input("Name your team! ")
+        team_name = input("Name your team Human! ")
 
         self.team_one = Team(team_name)
         choosing_Team_Size = True
         while choosing_Team_Size:
-            hero_number = input("Do you want to add a hero? (Y/N)")
+            hero_number = validator(["Yes","yes","y", "Y", "No", "no", "n", "N"],"Do you want to add a hero? (Y/N)")
             # every time I create a hero apppend that hero to the team
-            if hero_number.upper() == "Y" :
+            if hero_number == "Yes" or "yes" or "y" or "Y":
                 self.team_one.add_hero(self.create_hero())
                 print(self.team_one.heroes)
-            elif hero_number.upper() == "N" :
-                choosing_Team_Size = False
             else:
-                print("Invalid Input.")
+                choosing_Team_Size = False
+
         # print("This is Team 1 list of heroes: {}.".format(team_one.heroes))
 
     def build_team_two(self):
 
         print("\n")
         print("Build Team 2!")
-        team_name = input("What will the name of your team be? ")
+        team_name = input("Name your team Human! ")
 
         self.team_two = Team(team_name)
         choosing_Team2_Size = True
         while choosing_Team2_Size:
-            hero_number = input("Do you want to add a hero? (Y/N)")
+            hero_number = validator(["Yes","yes","y", "Y", "No", "no", "n", "N"],"Do you want to add a hero? (Y/N)")
             # every time I create a hero apppend that hero to the team
-            if hero_number.upper() == "Y" :
+            if hero_number == "Yes" or "yes" or "y" or "Y" :
                 self.team_two.add_hero(self.create_hero())
                 print(self.team_two.heroes)
-            elif hero_number.upper() == "N" :
-                choosing_Team2_Size = False
             else:
-                print("Invalid Input.")
+                choosing_Team2_Size = False
+
         # print("/n")
         # print("This is Team 2 list of heroes: {}.".format(team_two.heroes))
     def team_battle(self):
@@ -417,16 +410,13 @@ if __name__ == "__main__":
         # show kill/death ratio of each hero
         arena.show_stats()
         # After game ask user do they want to play again
-        play_again = input("Play Again? Y or N: ")
-
-        # Check for Player Input
-        # if the user does not want to play again stop the game loop
-        if play_again.lower() == "n":
+        play_again = validator(["Yes","yes","y", "Y", "No", "no", "n", "N"],"Play Again? Y or N: ")
+        if play_again==  "No"or "no" or "n" or "N":
             game_is_running = False
 
         else:
-            recreate_teams = input("Do you want new teams? (Y/N)")
-            if recreate_teams.lower() == "y":
+            recreate_teams = validator(["Yes","yes","y", "Y", "No", "no", "n", "N"],"Do you want new teams? (Y/N)")
+            if recreate_teams == "y" or "Y" or "Yes" or "yes":
                 arena.build_team_one()
                 arena.build_team_two()
             else:
